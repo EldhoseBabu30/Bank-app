@@ -1,0 +1,125 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <div class="col-lg-10">
+            <a class="navbar-brand text-primary" routerLink="/dashboard">
+                <i class="fa-solid fa-building-columns"></i>
+                &nbsp;
+                <span>Online Banking App</span>
+
+            </a>
+        </div>
+
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Services
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" data-bs-toggle="offcanvas" href="#offcanvasDeposit">Cash
+                                Deposit</a></li>
+                        <li><a class="dropdown-item" href="#">Fund Transfer</a></li>
+                        <li><a class="dropdown-item" (click)="getBalance()" data-bs-toggle="offcanvas"
+                                href="#offcanvasExample">Balance Enquiry</a></li>
+                        <li><a class="dropdown-item" href="#">Mini statement</a></li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#"> <i class="fa-solid fa-trash"></i>My Account</a></li>
+                        <li><a class="dropdown-item" href="#"> <i class="fa-solid fa-right-from-bracket"></i>Sign
+                                out</a></li>
+
+                    </ul>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<!-- dashboard design -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h1 style="margin-top:100px">Welcome {{user}}</h1>
+            <label class="mt-2" style="text-align:justify">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero odio, cumque, assumenda sint obcaecati
+                illum delectus dolorum animi quaerat magnam, consequatur itaque totam cupiditate voluptates in unde quam
+                omnis earum.
+            </label>
+            <div class="collapse" id="collapseExample" style="text-align:justify">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde iste ullam quis, voluptatibus aperiam
+                cupiditate eaque doloribus deserunt aliquid vero sequi? Impedit totam aut possimus dignissimos dolores
+                dolor. Repellat, aut. Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae fugiat iusto
+                provident quaerat dolore commodi perspiciatis quo laboriosam, sapiente distinctio eum asperiores tempore
+                aut,
+            </div>
+            <button (click)="collapse()" class="btn btn-primary mt-2" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Read <span *ngIf="isCollapse">More</span>
+                <span *ngIf="!isCollapse">Less</span>
+            </button>
+        </div>
+        <div class="col-md-8">
+            <img class="m-4" height="500px"
+                src="https://static.vecteezy.com/system/resources/previews/004/449/882/original/online-banking-users-flat-illustration-customized-solutions-metaphor-credit-cards-transactions-online-deposits-cashless-payments-ewallet-internet-bank-account-isolated-cartoon-concept-vector.jpg"
+                alt="login">
+
+        </div>
+    </div>
+</div>
+
+<!-- off-canvas balance enquiry -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <h3 class="offcanvas-title" id="offcanvasExampleLabel">Balance Enquiry</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="text-center"><img width="200px" src="https://cdn-icons-png.flaticon.com/512/1611/1611261.png"
+                alt="no-image"></div>
+        <div style="margin-top: 60px;">
+
+            <h5>Dear {{user}},</h5>
+            <label>Your current Account Balance is <b>{{balance}}</b></label>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- off-canvas deposit -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasDeposit" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <h3 class="offcanvas-title" id="offcanvasExampleLabel">Deposit Form</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="text-center"><img width="200px" src="https://cdn-icons-png.flaticon.com/512/2721/2721121.png"
+                alt="no-image"></div>
+        <div style="margin-top: 60px;">
+
+            <h5>Dear {{user}}, You can enter the amount to be deposited in your account</h5>
+            <form (ngSubmit)="deposit()" [formGroup]="depositForm" class="mt-2 border p-2" action="">
+                <div>
+                    <input name="amount" formControlName="amount" type="text" class="form-control"
+                        placeholder="Enter Amount">
+                </div>
+                <!-- deposit amount -->
+            <div *ngIf="this.depositForm.get('amount')?.errors&&this.depositForm.get('amount')?.touched" class="text-danger mb-2">Invalid Amount</div>
+            <div class="text-danger">{{depositMsg}}</div>
+
+                <button class="btn btn-primary mt-2">Deposit</button>
+            </form>
+        </div>
+    </div>
+</div>
